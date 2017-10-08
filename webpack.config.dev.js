@@ -28,6 +28,8 @@ module.exports = {
 		new webpack.NamedModulesPlugin(),
     new webpack.EnvironmentPlugin({
       DEBUG: true,
+      AUTH0_CLIENT_ID: null,
+      AUTH0_DOMAIN: null,
       KEEN_PROJECT_ID: null,
       KEEN_READ_KEY: null,
       NODE_ENV: "development",

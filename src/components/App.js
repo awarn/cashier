@@ -1,7 +1,8 @@
 
-import React from "react"
-import Navigation from "./Navigation"
+import Login from "./Login"
 import Main from "./Main"
+import Navigation from "./Navigation"
+import React from "react"
 
 export default class App extends React.Component {
 	constructor() {

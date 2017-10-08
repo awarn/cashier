@@ -17,6 +17,7 @@
     "postinstall": "npm rebuild node-sass"
   },
   "dependencies": {
+    "auth0-js": "8.10.1",
     "babel-cli": "6.26.0",
     "babel-loader": "7.1.2",
     "babel-plugin-transform-react-jsx": "6.24.1",

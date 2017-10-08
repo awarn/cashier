@@ -145,8 +145,6 @@ else {
 	app.use(express.static(path.resolve(__dirname, "build/public")));
 }
 
-app.get("*", middleware);
-
 app.get("/login", userController.getLogin);
 app.post("/login", userController.postLogin);
 app.get("/logout", userController.logout);
@@ -163,6 +161,8 @@ app.post("/account/profile", passportConfig.isAuthenticated, userController.post
 app.post("/account/password", passportConfig.isAuthenticated, userController.postUpdatePassword);
 app.post("/account/delete", passportConfig.isAuthenticated, userController.postDeleteAccount);
 app.get("/account/unlink/:provider", passportConfig.isAuthenticated, userController.getOauthUnlink);
+
+app.get("*", middleware);
 
 /**
  * Error Handler.
