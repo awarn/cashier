@@ -16,19 +16,19 @@ export default class Auth {
 			responseType: "token id_token",
 			scope: "openid"
 		});
-	}
+  }
 
 	handleAuthentication() {
     this.auth0.parseHash((err, authResult) => {
       if (authResult && authResult.accessToken && authResult.idToken) {
         this.setSession(authResult);
-        history.replace("/home");
+        history.replace("/");
       } else if (err) {
-        history.replace("/home");
+        history.replace("/");
         console.log(err);
       }
     });
-	}
+  }
 	
   isAuthenticated() {
     // Check whether the current time is past the 
@@ -44,7 +44,7 @@ export default class Auth {
     localStorage.setItem("id_token", authResult.idToken);
     localStorage.setItem("expires_at", expiresAt);
     // navigate to the home route
-    history.replace("/home");
+    history.replace("/");
   }
 
   login() {
@@ -57,6 +57,12 @@ export default class Auth {
     localStorage.removeItem("id_token");
     localStorage.removeItem("expires_at");
     // navigate to the home route
-    history.replace("/home");
+    history.replace("/");
+  }
+
+  requireAuth() {
+    if(!this.isAuthenticated()) {
+      history.replace("/");
+    }
   }
 }

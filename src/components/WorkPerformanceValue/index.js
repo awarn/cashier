@@ -21,27 +21,26 @@ export default class WorkPerformanceValue extends React.Component {
 					{
 						property_name: "user",
 						operator: "eq",
-						//property_value: req.user._id
+						property_value: "59918f209dc4a899d7975896"
 					}
 				],
 				timezone: "Europe/Paris",
 				timeframe: "this_7_days"
 			})
 			.then(result => {
-				console.log(result);
-				/* this.setState({
+				this.setState({
 					value: result.result
-				}) */
+				})
 			})
 			.catch(error => {
-				console.log(error);
+				console.log(error)
 			});
 	}
 
 	render() {
 		return (
 			<div>
-				<span className="h1">{this.state.value}</span> <span className="h4">avg sale value</span>
+				{ this.state.result === undefined ? "" : <span><span className="h2">{this.state.value}</span> <span>avg sale value</span></span> }
 			</div>
 		)
 	}
