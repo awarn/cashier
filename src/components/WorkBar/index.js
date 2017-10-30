@@ -1,5 +1,6 @@
 
 import React from "react"
+import WorkBarShare from "WorkBarShare"
 
 import s from "./style.scss"
 
@@ -34,13 +35,14 @@ export default class WorkBar extends React.Component {
 			return total + current.amount
 		}, 0)
 
-		let sections = this.state.workShares.map((share, i) => {
-			let style = {
-				width: `${100 * share.amount / total}%`
+		let shares = this.state.workShares.map((share, i) => {
+			let args = {
+				text: share.name,
+				proportion: share.amount / total
 			}
 			
 			return (
-				<div key={`share-${i}`} className={s.share} style={style}>{share.name}</div>
+				<WorkBarShare key={`share-${i}`} args={args}/>
 			)
 		})
 
@@ -48,7 +50,7 @@ export default class WorkBar extends React.Component {
 			<div className={s.wrapper}>
 				<div className={s.bar}>
 					<div className={s.total} style={{width: `${100 * total / target}%`}}>
-						{sections}
+						{shares}
 					</div>
 					<div className={s.targetMarker}>
 						<span className={s.targetMarkerText}>{this.state.target}</span>

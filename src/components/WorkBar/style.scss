@@ -6,18 +6,6 @@ $barHeight: 2.5rem;
 	white-space: nowrap;
 }
 
-.share {
-	display: inline-flex;
-	height: $barHeight;
-	color: #fff;
-	align-items: center;
-	@for $i from 1 to 5 {
-		&:nth-child(#{$i}) {
-			background: adjust-hue(blueviolet, $i * 10)
-		}
-	}
-}
-
 .targetMarker {
 	position: absolute;
 	top: -0.5rem;

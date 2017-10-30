@@ -1,0 +1,22 @@
+@import "./../WorkBar/style.scss";
+
+.normal {
+	display: inline-flex;
+	height: $barHeight;
+	color: #fff;
+	align-items: center;
+	@for $i from 1 to 5 {
+		&:nth-child(#{$i}) {
+			background: adjust-hue(blueviolet, $i * 10)
+		}
+	}
+}
+
+.focus {
+	composes: normal;
+	@for $i from 1 to 5 {
+		&:nth-child(#{$i}) {
+			background: darken(adjust-hue(blueviolet, $i * 10), 15)
+		}
+	}
+}
