@@ -3,7 +3,7 @@ import React from "react"
 
 import s from "./style.scss"
 
-export default class Navigation extends React.Component {
+export default class WorkBar extends React.Component {
 	constructor() {
 		super()
 
