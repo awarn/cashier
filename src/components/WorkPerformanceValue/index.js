@@ -40,7 +40,7 @@ export default class WorkPerformanceValue extends React.Component {
 	render() {
 		return (
 			<div>
-				{ this.state.result === undefined ? "" : <span><span className="h2">{this.state.value}</span> <span>avg sale value</span></span> }
+				{ this.state.result === undefined ? <span>Laddar...</span> : <span><span className="h2">{this.state.value}</span> <span>avg sale value</span></span> }
 			</div>
 		)
 	}

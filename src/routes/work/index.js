@@ -1,8 +1,8 @@
 
 import React from "react"
 
-import WorkBar from "./../../components/WorkBar"
-import WorkPerformanceValue from "./../../components/WorkPerformanceValue"
+import WorkBar from "components/WorkBar"
+import WorkPerformanceValue from "WorkPerformanceValue"
 
 export default class Work extends React.Component {
 	constructor() {
