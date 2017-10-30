@@ -19,9 +19,9 @@ const handleAuthentication = (nextState, replace) => {
 }
 
 const userIsAuthenticated = connectedRouterRedirect({
-   // The url to redirect user to if they fail
+  // The url to redirect user to if they fail
   redirectPath: "/user",
-   // Determine if the user is authenticated or not
+  // Determine if the user is authenticated or not
   authenticatedSelector: auth.isAuthenticated,
   // A nice display name for this check
   wrapperDisplayName: "UserIsAuthenticated"
