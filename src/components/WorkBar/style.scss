@@ -1,0 +1,56 @@
+$barHeight: 2.5rem;
+
+.bar {
+	position: relative;
+	margin-right: 30px;
+	white-space: nowrap;
+}
+
+.share {
+	display: inline-flex;
+	height: $barHeight;
+	color: #fff;
+	align-items: center;
+	@for $i from 1 to 5 {
+		&:nth-child(#{$i}) {
+			background: adjust-hue(blueviolet, $i * 10)
+		}
+	}
+}
+
+.targetMarker {
+	position: absolute;
+	top: -0.5rem;
+	right: 0;
+	height: 0.5rem;
+	width: 0.5rem;
+	border: 0.125rem solid black;
+	border-radius: 50%;
+	&::after {
+		content: "";
+		position: absolute;
+		top: 100%;
+		left: calc(50% - 0.06125rem);
+		height: $barHeight + 0.25rem;
+		border-left: 0.125rem dashed black;
+	}
+}
+
+.targetMarkerText {
+	position: absolute;
+	top: $barHeight + 0.5rem;
+}
+
+.total {
+	display: inline-flex;
+}
+
+.wrapper {
+	margin: 1rem 0 1rem -30px;
+	padding: 2rem 0;
+	overflow-y: hidden;
+	overflow-x: scroll;
+	&::-webkit-scrollbar { 
+		display: none; 
+	}
+}
