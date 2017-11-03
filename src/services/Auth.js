@@ -35,7 +35,7 @@ export default class Auth {
 	
 	isAuthenticated() {
 		// Check whether the current time is past the 
-		// access token's expiry time
+		// access token"s expiry time
 		let expiresAt = JSON.parse(localStorage.getItem("expires_at"));
 		return new Date().getTime() < expiresAt;
 	}
@@ -70,9 +70,9 @@ export default class Auth {
 	}
 
 	getAccessToken() {
-		const accessToken = localStorage.getItem('access_token');
+		const accessToken = localStorage.getItem("access_token");
 		if (!accessToken) {
-			throw new Error('No access token found');
+			throw new Error("No access token found");
 		}
 		return accessToken;
 	}
