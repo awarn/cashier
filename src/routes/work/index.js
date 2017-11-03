@@ -2,7 +2,7 @@
 import React from "react"
 
 import WorkBar from "components/WorkBar"
-import WorkPerformanceValue from "WorkPerformanceValue"
+import WorkPerformanceValue from "components/WorkPerformanceValue"
 
 export default class Work extends React.Component {
 	constructor() {

@@ -1,6 +1,5 @@
 
 import React from "react"
-import WorkBarShare from "WorkBarShare"
 import { Panel, ControlLabel, Glyphicon } from "react-bootstrap";
 
 import s from "./style.scss"

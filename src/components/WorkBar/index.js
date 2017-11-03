@@ -1,6 +1,6 @@
 
 import React from "react"
-import WorkBarShare from "WorkBarShare"
+import WorkBarShare from "components/WorkBarShare"
 
 import s from "./style.scss"
 
