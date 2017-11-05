@@ -2,6 +2,7 @@
 import React from "react"
 import { Switch, Route } from "react-router-dom"
 
+import Dev from "routes/dev"
 import Home from "../../routes/home"
 import User from "../../routes/user"
 import Welcome from "../../routes/welcome"
@@ -43,6 +44,7 @@ export default class Main extends React.Component {
 						return (<Welcome {...props}/>)
 					}}/>
 					<Route path="/work" component={userIsAuthenticated(Work)}/>
+					<Route path="/dev" component={userIsAuthenticated(Dev)}/>
 				</Switch>
 			</main>
 		)

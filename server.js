@@ -19,6 +19,8 @@ const expressValidator = require("express-validator");
 const expressStatusMonitor = require("express-status-monitor");
 const sass = require("node-sass-middleware");
 const multer = require("multer");
+const jwt = require("express-jwt");
+const jwks = require("jwks-rsa");
 
 import Webpack from "webpack";
 
@@ -42,6 +44,8 @@ dotenv.load({ path: ".env" });
 const homeController = require("./controllers/home");
 const userController = require("./controllers/user");
 const contactController = require("./controllers/contact");
+
+import saleController from "./controllers/sale"
 
 /**
  * API keys and Passport configuration.
@@ -162,6 +166,34 @@ app.post("/account/password", passportConfig.isAuthenticated, userController.pos
 app.post("/account/delete", passportConfig.isAuthenticated, userController.postDeleteAccount);
 app.get("/account/unlink/:provider", passportConfig.isAuthenticated, userController.getOauthUnlink);
 
+/**
+ * API
+ */
+const jwtCheck = jwt({
+	secret: jwks.expressJwtSecret({
+		cache: true,
+		rateLimit: true,
+		jwksRequestsPerMinute: 5,
+		jwksUri: "https://carrotish.eu.auth0.com/.well-known/jwks.json"
+	}),
+	audience: "http://localhost:8080/api/",
+	issuer: "https://carrotish.eu.auth0.com/",
+	algorithms: ["RS256"]
+});
+
+app.use("/api", jwtCheck);
+
+let router = express.Router();
+router.get("/", function(req, res) {
+	res.json({ message: "hooray! welcome to our api!" });   
+});
+router.get("/user/work/avg7", saleController.avgValueSevenDays)
+
+app.use("/api", router);
+
+/**
+ * App
+ */
 app.get("*", middleware);
 
 /**

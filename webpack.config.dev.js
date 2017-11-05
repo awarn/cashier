@@ -6,6 +6,7 @@ let cssModulesLoader = "css-loader?importLoader=1&modules&localIdentName=[path]_
 module.exports = {
   devtool: "inline-source-map",
   entry: [
+    "whatwg-fetch",
     "webpack-hot-middleware/client",
 		path.resolve(__dirname, "src/entry.js")
 	],

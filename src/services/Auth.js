@@ -77,6 +77,14 @@ export default class Auth {
 		return accessToken;
 	}
 
+	getIdToken() {
+		const idToken = localStorage.getItem("id_token");
+		if (!idToken) {
+			throw new Error("No id token found");
+		}
+		return idToken;
+	}
+
 	getProfile(cb) {
 		let accessToken = this.getAccessToken();
 		this.auth0.client.userInfo(accessToken, (err, profile) => {
