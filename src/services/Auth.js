@@ -1,15 +1,15 @@
-import auth0 from "auth0-js";
-import history from "./History";
+import auth0 from "auth0-js"
+import history from "./History"
 
 export default class Auth {
-	userProfile;
+	userProfile
 
 	constructor() {
-		this.login = this.login.bind(this);
-		this.logout = this.logout.bind(this);
-		this.handleAuthentication = this.handleAuthentication.bind(this);
-		this.isAuthenticated = this.isAuthenticated.bind(this);
-		this.getProfile = this.getProfile.bind(this);
+		this.login = this.login.bind(this)
+		this.logout = this.logout.bind(this)
+		this.handleAuthentication = this.handleAuthentication.bind(this)
+		this.isAuthenticated = this.isAuthenticated.bind(this)
+		this.getProfile = this.getProfile.bind(this)
 		
 		this.auth0 = new auth0.WebAuth({
 			domain: process.env.AUTH0_DOMAIN,
@@ -18,80 +18,164 @@ export default class Auth {
 			audience: `https://${process.env.AUTH0_DOMAIN}/userinfo`,
 			responseType: "token id_token",
 			scope: "openid profile"
-		});
+		})
+
+		/* audience=YOUR_API_AUDIENCE&
+		scope=YOUR_SCOPE&
+		response_type=YOUR_RESPONSE_TYPE&
+		client_id=8kFSenuO2CmHE6jhnirxpYtoGer6fM8n&
+		redirect_uri=https://YOUR_APP/callback&
+		nonce=YOUR_CRYPTOGRAPHIC_NONCE
+		state=YOUR_OPAQUE_VALUE */
+		this.auth0Sales = new auth0.WebAuth({
+			domain: process.env.AUTH0_DOMAIN,
+			clientID: process.env.AUTH0_CLIENT_ID,
+			redirectUri: "http://localhost:8080/welcome",
+			audience: "http://localhost:8080/api",
+			responseType: "token",
+			scope: "read:sales write:sales"
+		})
 	}
 
+	/**
+	 * 
+	 */
 	handleAuthentication() {
 		this.auth0.parseHash((err, authResult) => {
 			if (authResult && authResult.accessToken && authResult.idToken) {
-				this.setSession(authResult);
-				history.replace("/");
-			} else if (err) {
-				history.replace("/");
-				console.log(err);
+				this.setSession(authResult)
+				history.replace("/")
 			}
-		});
+			else if (authResult && authResult.accessToken) {
+				this.setAPISession(authResult)
+				history.replace("/")
+			}
+			else if (err) {
+				history.replace("/")
+				console.log(err)
+			}
+			else {
+				history.replace("/")
+				console.log("An unknown error occured when authenticating.")
+			}
+		})
 	}
 	
+	/**
+	 * Check for the presence of a login. Technically: Is the access token past expiry time?
+	 */
 	isAuthenticated() {
-		// Check whether the current time is past the 
-		// access token"s expiry time
-		let expiresAt = JSON.parse(localStorage.getItem("expires_at"));
-		return new Date().getTime() < expiresAt;
+		// Check whether the current time is past the access token"s expiry time
+		let expiresAt = JSON.parse(localStorage.getItem("auth0_expires_at"))
+		return new Date().getTime() < expiresAt
 	}
 
-	setSession(authResult) {
-		// Set the time that the access token will expire at
-		let expiresAt = JSON.stringify((authResult.expiresIn * 1000) + new Date().getTime());
-		localStorage.setItem("access_token", authResult.accessToken);
-		localStorage.setItem("id_token", authResult.idToken);
-		localStorage.setItem("expires_at", expiresAt);
-		// navigate to the home route
-		history.replace("/");
+	isAPIAuthenticated() {
+		let apiToken = localStorage.getItem("auth0_api_access_token")
+
+		let expiresAt = JSON.parse(localStorage.getItem("auth0_expires_at"))
+
+		if (apiToken && new Date().getTime() < expiresAt) {
+			return true
+		}
+		return false
 	}
 
-	login() {
-		this.auth0.authorize();
-	}
-
-	logout() {
-		// Clear access token and ID token from local storage
-		localStorage.removeItem("access_token");
-		localStorage.removeItem("id_token");
-		localStorage.removeItem("expires_at");
-		// navigate to the home route
-		history.replace("/");
-	}
-
+	/**
+	 * Check for authentication, and if missing send the user to the homepage.
+	 */
 	requireAuth() {
 		if(!this.isAuthenticated()) {
-			history.replace("/");
+			history.replace("/")
 		}
+	}
+
+	/**
+	 * Create a user session using Auth0. Added to localstorage is "auth0_access_token", "auth0_id_token" and "auth0_expires_at".
+	 * @param {*} authResult The result provided by Auth0 parseHash function
+	 */
+	setSession(authResult) {
+		// Set the time that the access token will expire at
+		let expiresAt = JSON.stringify((authResult.expiresIn * 1000) + new Date().getTime())
+		localStorage.setItem("auth0_expires_at", expiresAt)
+
+		localStorage.setItem("auth0_access_token", authResult.accessToken)
+
+		localStorage.setItem("auth0_id_token", authResult.idToken)
+		// navigate to the home route
+		//history.replace("/")
+	}
+
+	/**
+	 * 
+	 * @param {*} authResult The result provided by Auth0 parseHash function
+	 */
+	setAPISession(authResult) {
+		let expiresAt = JSON.stringify((authResult.expiresIn * 1000) + new Date().getTime())
+		localStorage.setItem("auth0_expires_at", expiresAt)
+
+		localStorage.setItem("auth0_api_access_token", authResult.accessToken)
+	}
+
+	/**
+	 * Points the browser to Auth0 authentication page. Details, including callback page, are set in the constructor of this service class.
+	 */
+	login() {
+		this.auth0.authorize()
+	}
+
+	loginAPI() {
+		this.auth0Sales.authorize()
+	}
+
+	/**
+	 * Remove Auth0 session variables from localstorage.
+	 */
+	logout() {
+		// Clear access token and ID token from local storage
+		localStorage.removeItem("auth0_access_token")
+		localStorage.removeItem("auth0_id_token")
+		localStorage.removeItem("auth0_expires_at")
+		localStorage.removeItem("auth0_api_access_token")
+		// navigate to the home route
+		//history.replace("/")
 	}
 
 	getAccessToken() {
-		const accessToken = localStorage.getItem("access_token");
+		const accessToken = localStorage.getItem("auth0_access_token")
 		if (!accessToken) {
-			throw new Error("No access token found");
+			throw new Error("No access token found")
 		}
-		return accessToken;
+		return accessToken
 	}
 
 	getIdToken() {
-		const idToken = localStorage.getItem("id_token");
+		const idToken = localStorage.getItem("auth0_id_token")
 		if (!idToken) {
-			throw new Error("No id token found");
+			throw new Error("No id token found")
 		}
-		return idToken;
+		return idToken
+	}
+
+	getAPIAccessToken() {
+		const apiAccessToken = localStorage.getItem("auth0_api_access_token")
+		if (!apiAccessToken) {
+			throw new Error("No API access token found")
+		}
+		return apiAccessToken
 	}
 
 	getProfile(cb) {
-		let accessToken = this.getAccessToken();
-		this.auth0.client.userInfo(accessToken, (err, profile) => {
-			if (profile) {
-				this.userProfile = profile;
-			}
-			cb(err, profile);
-		});
+		try {
+			let accessToken = this.getAccessToken()
+			this.auth0.client.userInfo(accessToken, (err, profile) => {
+				if (profile) {
+					this.userProfile = profile
+				}
+				cb(err, profile)
+			})
+		} catch (error) {
+			this.login()
+		}
 	}
 }

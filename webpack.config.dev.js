@@ -29,6 +29,7 @@ module.exports = {
       DEBUG: true,
       AUTH0_CLIENT_ID: null,
       AUTH0_DOMAIN: null,
+      AUTH0_SALES_API_CLIENT_ID: null,
       KEEN_PROJECT_ID: null,
       KEEN_READ_KEY: null,
       NODE_ENV: "development",

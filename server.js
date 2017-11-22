@@ -176,20 +176,20 @@ const jwtCheck = jwt({
 		jwksRequestsPerMinute: 5,
 		jwksUri: "https://carrotish.eu.auth0.com/.well-known/jwks.json"
 	}),
-	audience: "http://localhost:8080/api/",
+	audience: "http://localhost:8080/api",
 	issuer: "https://carrotish.eu.auth0.com/",
 	algorithms: ["RS256"]
 });
 
 app.use("/api", jwtCheck);
 
-let router = express.Router();
-router.get("/", function(req, res) {
+let apiRouter = express.Router();
+apiRouter.get("/", function(req, res) {
 	res.json({ message: "hooray! welcome to our api!" });   
 });
-router.get("/user/work/avg7", saleController.avgValueSevenDays)
+apiRouter.get("/user/work/avg7", saleController.avgValueSevenDays)
 
-app.use("/api", router);
+app.use("/api", apiRouter);
 
 /**
  * App
