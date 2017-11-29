@@ -6,9 +6,8 @@ const auth = new Auth()
 const rootUrl = "http://localhost:8080/api"
 
 export async function get(url) {
-	if (!auth.isAPIAuthenticated()) {
-		auth.loginAPI()
-	}
+	
+	auth.requireAPIAuth()
 
 	try {
 		let value = await fetch(rootUrl + url, {

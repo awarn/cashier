@@ -67,13 +67,14 @@ export default class Auth {
 	isAuthenticated() {
 		// Check whether the current time is past the access token"s expiry time
 		let expiresAt = JSON.parse(localStorage.getItem("auth0_expires_at"))
+
 		return new Date().getTime() < expiresAt
 	}
 
 	isAPIAuthenticated() {
 		let apiToken = localStorage.getItem("auth0_api_access_token")
 
-		let expiresAt = JSON.parse(localStorage.getItem("auth0_expires_at"))
+		let expiresAt = JSON.parse(localStorage.getItem("auth0_api_expires_at"))
 
 		if (apiToken && new Date().getTime() < expiresAt) {
 			return true
@@ -82,16 +83,22 @@ export default class Auth {
 	}
 
 	/**
-	 * Check for authentication, and if missing send the user to the homepage.
+	 * Check for authentication, and if missing send the user to login.
 	 */
 	requireAuth() {
 		if(!this.isAuthenticated()) {
-			history.replace("/")
+			this.login()
+		}
+	}
+
+	requireAPIAuth() {
+		if(!this.isAPIAuthenticated()) {
+			this.loginAPI()
 		}
 	}
 
 	/**
-	 * Create a user session using Auth0. Added to localstorage is "auth0_access_token", "auth0_id_token" and "auth0_expires_at".
+	 * Create a user session using Auth0, with variables in localstorage.
 	 * @param {*} authResult The result provided by Auth0 parseHash function
 	 */
 	setSession(authResult) {
@@ -112,7 +119,7 @@ export default class Auth {
 	 */
 	setAPISession(authResult) {
 		let expiresAt = JSON.stringify((authResult.expiresIn * 1000) + new Date().getTime())
-		localStorage.setItem("auth0_expires_at", expiresAt)
+		localStorage.setItem("auth0_api_expires_at", expiresAt)
 
 		localStorage.setItem("auth0_api_access_token", authResult.accessToken)
 	}
@@ -137,8 +144,9 @@ export default class Auth {
 		localStorage.removeItem("auth0_id_token")
 		localStorage.removeItem("auth0_expires_at")
 		localStorage.removeItem("auth0_api_access_token")
+		localStorage.removeItem("auth0_api_expires_at")
 		// navigate to the home route
-		//history.replace("/")
+		history.replace("/")
 	}
 
 	getAccessToken() {
