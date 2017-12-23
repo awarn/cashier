@@ -19,14 +19,7 @@ export default class Auth {
 			responseType: "token id_token",
 			scope: "openid profile"
 		})
-
-		/* audience=YOUR_API_AUDIENCE&
-		scope=YOUR_SCOPE&
-		response_type=YOUR_RESPONSE_TYPE&
-		client_id=8kFSenuO2CmHE6jhnirxpYtoGer6fM8n&
-		redirect_uri=https://YOUR_APP/callback&
-		nonce=YOUR_CRYPTOGRAPHIC_NONCE
-		state=YOUR_OPAQUE_VALUE */
+		
 		this.auth0Sales = new auth0.WebAuth({
 			domain: process.env.AUTH0_DOMAIN,
 			clientID: process.env.AUTH0_CLIENT_ID,
