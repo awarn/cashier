@@ -166,17 +166,18 @@ export default class Auth {
 		return apiAccessToken
 	}
 
-	getProfile(cb) {
+	async getProfile() {
 		try {
 			let accessToken = this.getAccessToken()
-			this.auth0.client.userInfo(accessToken, (err, profile) => {
+			return new Promise((resolve, reject) => this.auth0.client.userInfo(accessToken, (error, profile) => {
 				if (profile) {
 					this.userProfile = profile
+					resolve(profile)
 				}
-				cb(err, profile)
-			})
+				reject(error)
+			}))
 		} catch (error) {
-			this.login()
+			throw error
 		}
 	}
 }
