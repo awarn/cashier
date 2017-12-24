@@ -1,3 +1,4 @@
+
 import * as path from "path"
 import * as webpack from "webpack"
 
@@ -6,6 +7,7 @@ let cssModulesLoader = "css-loader?importLoader=1&modules&localIdentName=[path]_
 module.exports = {
   devtool: "inline-source-map",
   entry: [
+    "babel-polyfill",
     "whatwg-fetch",
     "webpack-hot-middleware/client",
 		path.resolve(__dirname, "src/entry.js")
@@ -23,8 +25,8 @@ module.exports = {
 		extensions: [".ts", ".tsx", ".js", ".jsx", ".scss", ".css"]
   },
   plugins: [
-		new webpack.HotModuleReplacementPlugin(),
-		new webpack.NamedModulesPlugin(),
+    new webpack.HotModuleReplacementPlugin(),
+    new webpack.NamedModulesPlugin(),
     new webpack.EnvironmentPlugin({
       DEBUG: true,
       AUTH0_CLIENT_ID: null,
