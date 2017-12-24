@@ -20,6 +20,7 @@ export default class Work extends React.Component {
 				<div className="container">
 					<div className="col-sm-6">
 						<h2>Ditt team</h2>
+						<p className="text-success">Veckans mål uppnått!</p>
 						<WorkBar/>
 					</div>
 					<div className="col-sm-6">
