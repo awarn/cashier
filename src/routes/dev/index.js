@@ -24,39 +24,43 @@ export default class Dev extends React.Component {
 		this.handleSubmit = this.handleSubmit.bind(this)
 	}
 
-  getValidationState() {
-    const length = this.state.charged.length
-    if (length > 10) return "success"
-    else if (length > 5) return "warning"
-    else if (length > 0) return "error"
-    return null
-  }
+	getValidationState() {
+		const length = this.state.charged.length
+		if (length > 10) return "success"
+		else if (length > 5) return "warning"
+		else if (length > 0) return "error"
+		return null
+	}
 
-  handleChargedChanged(e) {
-    this.setState({ charged: Number.parseFloat(e.target.value) })
+	handleChargedChanged(e) {
+		this.setState({ charged: Number.parseFloat(e.target.value) })
 	}
 	
 	handleSubmit(event) {
 		event.preventDefault()
 
-    if (this.state.charged) {
+		if (this.state.charged) {
 			(async () => {
-				let profile = await auth.getProfile()
+				try {
+					let profile = await auth.getProfile()
 
-				let headers = {
-					"Accept": "application/json",
-					"Content-Type": "application/json"
+					let headers = {
+						"Accept": "application/json",
+						"Content-Type": "application/json"
+					}
+
+					let body = {
+						user: profile.name,
+						charged: this.state.charged
+					}
+
+					post("/sale", body, headers)
+				} catch (error) {
+					console.error(error)
 				}
-
-				let body = {
-					user: profile.name,
-					charged: this.state.charged
-				}
-
-				post("/sale", body, headers)
 			})()
-    }
-  }
+		}
+	}
 
 	render() {
 		return (

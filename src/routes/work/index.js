@@ -23,11 +23,11 @@ export default class Work extends React.Component {
 						<p className="text-success">Veckans mål uppnått!</p>
 						<WorkBar/>
 					</div>
-					<div className="col-sm-6">
-						<h2>Din dag</h2>
-					</div>
 				</div>
 				<div className="container">
+					<div className="col-xs-12">
+						<h2>Din dag</h2>
+					</div>
 					<div className="col-sm-6">
 						<WorkPerformanceValue/>
 					</div>

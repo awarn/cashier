@@ -10,17 +10,47 @@ const client = new Keen({
 	writeKey: process.env.KEEN_WRITE_KEY
 })
 
-async function keenRecordEvent(event) {
-	return new Promise((resolve, reject) => {
-		client.recordEvent("sales", event, (err, res) => {
-			if (err) {
-				reject(err)
-			}
-			else {
-				resolve(res.result)
-			}
+const STREAMS = [
+	"sales"
+]
+
+/* async function keenQuery(type, eventCollection, targetProperty, timeframe, filters) {
+	return 
+} */
+
+/**
+ * Record a JSON object as an event in a Keen.io stream.
+ * @param {string} streamName The Keen.io stream to record the event to. Only accepts values from STREAMS.
+ * @param {*} event JSON object representing the event.
+ */
+async function keenRecordEvent(streamName, event) {
+	if (STREAMS.indexOf(streamName) == -1) {
+		throw new Error(`"${streamName}" is not an acceptable Keen stream name.`)
+	}
+	else {
+		return new Promise((resolve, reject) => {
+			client.recordEvent(streamName, event, (err, res) => {
+				if (err) {
+					reject(err)
+				}
+				else {
+					resolve(res)
+				}
+			})
 		})
-	})
+	}
+}
+
+/**
+ * Record a JSON object as a sale in the Keen.io "sales" stream.
+ * @param {*} sale JSON object representing the sale event.
+ */
+async function keenRecordSale(sale) {
+	try {
+		return await keenRecordEvent("sales", sale)
+	} catch (error) {
+		throw error
+	}
 }
 
 export async function pushSale(req, res) {
@@ -40,35 +70,33 @@ export async function pushSale(req, res) {
 	}
 
 	try {
-		let result = await keenRecordEvent(saleEvent)
-		res.json(result)
-	}
-	catch (error) {
+		let response = await keenRecordSale(saleEvent)
+		res.json(response)
+	} catch (error) {
 		res.json(error)
 	}
 }
 
 export async function avgValueSevenDays(req, res) {
-	let user_id = req.param("user") || req.body.user
-	
-	return client
-		.query("average", {
-			event_collection: "sales",
-			target_property: "charged",
-			filters: [
-				{
-					property_name: "user",
-					operator: "eq",
-					property_value: user_id
-				}
-			],
-			timezone: "Europe/Paris",
-			timeframe: "this_7_days"
-		})
-		.then(response => {
-			return response.result
-		})
-		.catch(error => {
-			console.log(error)
-		})
+	let user = req.params.user || req.body.user || req.query.user
+
+	return client.query("average", {
+		event_collection: "sales",
+		target_property: "charged",
+		filters: [
+			{
+				property_name: "user",
+				operator: "eq",
+				property_value: user
+			}
+		],
+		timezone: "Europe/Paris",
+		timeframe: "this_7_days"
+	})
+	.then(response => {
+		res.json(response.result)
+	})
+	.catch(error => {
+		res.json(error)
+	})
 }

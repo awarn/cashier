@@ -7,7 +7,7 @@ const rootUrl = "http://localhost:8080/api"
 export async function get(url, headers = {}) {
 	auth.requireAPIAuth()
 
-	let allHeaders = Object.assign(
+	let combinedHeaders = Object.assign(
 		{
 			"Accept": "application/json",
 			"Authorization": "Bearer " + auth.getAPIAccessToken()
@@ -15,10 +15,12 @@ export async function get(url, headers = {}) {
 		headers)
 
 	try {
-		let value = await fetch(rootUrl + url, {
+		let profile = await auth.getProfile()
+		let response = await fetch(rootUrl + url + `?user=${profile.name}`, {
 			cache: false,
-			headers: new Headers(allHeaders)
+			headers: new Headers(combinedHeaders)
 		})
+		return response.json()
 	} catch (error) {
 		throw error
 	}
@@ -27,7 +29,7 @@ export async function get(url, headers = {}) {
 export async function post(url, body, headers = {}) {
 	auth.requireAPIAuth()
 	
-	let allHeaders = Object.assign(
+	let combinedHeaders = Object.assign(
 		{
 			"Accept": "application/json",
 			"Authorization": "Bearer " + auth.getAPIAccessToken()
@@ -35,12 +37,20 @@ export async function post(url, body, headers = {}) {
 		headers)
 	
 	try {
-		let value = await fetch(rootUrl + url, {
+		let response = await fetch(rootUrl + url, {
 			method: "POST",
 			cache: false,
-			headers: new Headers(allHeaders),
+			headers: new Headers(combinedHeaders),
 			body: JSON.stringify(body)
 		})
+
+		let contentType = response.headers.get("content-type");
+		if(contentType && contentType.includes("application/json")) {
+			return response.json()
+		}
+		else {
+			throw new TypeError("Did not get JSON response from Cashier API.")
+		}
 	} catch (error) {
 		throw error
 	}
