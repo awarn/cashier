@@ -1,13 +1,8 @@
 {
-  "name": "hackathon-starter",
-  "version": "4.3.0",
-  "description": "A boilerplate for Node.js web applications",
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/sahat/hackathon-starter.git"
-  },
-  "author": "Sahat Yalkabov",
-  "license": "MIT",
+  "name": "cashier",
+  "version": "0.0.1",
+  "description": "Quite unclear so far",
+  "author": "Anton Warnhag (awarnhag, awarn)",
   "scripts": {
     "start": "webpack --config ./webpack.config.prod.js && cross-env NODE_ENV=production babel-node server.js",
     "dev": "cross-env NODE_ENV=development nodemon server.js --exec babel-node",
