@@ -46,6 +46,7 @@ const userController = require("./controllers/user");
 const contactController = require("./controllers/contact");
 
 import * as saleController from "./controllers/sale"
+import * as teamController from "./controllers/team"
 
 /**
  * API keys and Passport configuration.
@@ -189,6 +190,8 @@ apiRouter.get("/", function(req, res) {
 });
 apiRouter.get("/user/work/avg7", saleController.avgValueSevenDays)
 apiRouter.post("/sale", saleController.pushSale)
+apiRouter.get("/team", teamController.getTeam)
+//apiRouter.get("/teams", teamController.getTeams)
 
 app.use("/api", apiRouter);
 

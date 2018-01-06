@@ -3,6 +3,7 @@ import React from "react"
 
 import Login from "components/Login"
 import Profile from "components/Profile"
+import TeamList from "components/TeamList"
 
 import Auth from "./../../services/Auth.js";
 const auth = new Auth();
@@ -18,6 +19,9 @@ export default class Work extends React.Component {
 				<div className="container">
 					<div className="col-sm-6">
 						<Login/>
+					</div>
+					<div className="col-sm-6">
+						<TeamList />
 					</div>
 					<div className="col-sm-6">
 						<Profile auth={auth}/>
