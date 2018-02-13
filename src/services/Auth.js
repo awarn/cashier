@@ -61,7 +61,7 @@ export default class Auth {
 		// Check whether the current time is past the access token"s expiry time
 		let expiresAt = JSON.parse(localStorage.getItem("auth0_expires_at"))
 
-		return new Date().getTime() < expiresAt
+		return expiresAt && new Date().getTime() < expiresAt
 	}
 
 	isAPIAuthenticated() {
@@ -145,7 +145,7 @@ export default class Auth {
 	getAccessToken() {
 		const accessToken = localStorage.getItem("auth0_access_token")
 		if (!accessToken) {
-			throw new Error("No access token found")
+			this.login();
 		}
 		return accessToken
 	}
@@ -153,7 +153,7 @@ export default class Auth {
 	getIdToken() {
 		const idToken = localStorage.getItem("auth0_id_token")
 		if (!idToken) {
-			throw new Error("No id token found")
+			this.login();
 		}
 		return idToken
 	}
@@ -161,14 +161,14 @@ export default class Auth {
 	getAPIAccessToken() {
 		const apiAccessToken = localStorage.getItem("auth0_api_access_token")
 		if (!apiAccessToken) {
-			throw new Error("No API access token found")
+			this.loginAPI();
 		}
 		return apiAccessToken
 	}
 
 	async getProfile() {
+		let accessToken = this.getAccessToken()
 		try {
-			let accessToken = this.getAccessToken()
 			return new Promise((resolve, reject) => this.auth0.client.userInfo(accessToken, (error, profile) => {
 				if (profile) {
 					this.userProfile = profile

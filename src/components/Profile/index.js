@@ -11,8 +11,8 @@ export default class Profile extends React.Component {
 
 	componentWillMount() {
 		this.setState({ profile: {} })
-		const { userProfile, getProfile } = this.props.auth
-		if (!userProfile) {
+		const { userProfile, getProfile, isAuthenticated } = this.props.auth
+		if ( isAuthenticated() && !userProfile) {
 			(async () => {
 				let profile = await getProfile()
 				this.setState({ profile })
