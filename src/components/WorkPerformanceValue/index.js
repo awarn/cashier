@@ -1,12 +1,13 @@
 import React from "react"
 import * as CashierAPI from "helpers/api"
+import { round } from "lodash"
 
 export default class WorkPerformanceValue extends React.Component {
 	constructor(props) {
 		super(props)
 		
 		this.state = {
-			value: props.value || "~"
+			value: props.value || 0
 		}
 	}
 
@@ -27,7 +28,7 @@ export default class WorkPerformanceValue extends React.Component {
 	render() {
 		return (
 			<div>
-				<span><span className="h2">{this.state.value}</span> <span>(genomsnitt)</span></span>
+				<span><span className="h2">{round(this.state.value, 2)}</span> <span>(genomsnitt)</span></span>
 			</div>
 		)
 	}
