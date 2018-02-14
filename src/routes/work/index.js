@@ -31,9 +31,6 @@ export default class Work extends React.Component {
 					<div className="col-sm-6">
 						<WorkPerformanceValue/>
 					</div>
-					<div className="col-sm-6">
-						<WorkPerformanceValue/>
-					</div>
 				</div>
 			</div>
 		)
