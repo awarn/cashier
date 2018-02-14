@@ -25,7 +25,7 @@ export default class Work extends React.Component {
 					</div>
 				</div>
 				<div className="container">
-					<div className="col-xs-12">
+					<div className="col-12">
 						<h2>Din dag</h2>
 					</div>
 					<div className="col-sm-6">
