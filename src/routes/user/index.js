@@ -3,7 +3,7 @@ import React from "react"
 
 import Login from "components/Login"
 import Profile from "components/Profile"
-import TeamList from "components/TeamList"
+import TeamList from "components/team/TeamList"
 
 import Auth from "./../../services/Auth.js";
 const auth = new Auth();

@@ -191,7 +191,8 @@ apiRouter.get("/", function(req, res) {
 apiRouter.get("/user/work/avg7", saleController.avgValueSevenDays)
 apiRouter.post("/sale", saleController.pushSale)
 apiRouter.get("/team", teamController.getTeam)
-//apiRouter.get("/teams", teamController.getTeams)
+apiRouter.post("/team", teamController.postTeam)
+apiRouter.get("/teams", teamController.getTeams)
 
 app.use("/api", apiRouter);
 
