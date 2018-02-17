@@ -14,19 +14,29 @@ export default class Work extends React.Component {
 	}
 
 	render() {
+		const { isAuthenticated } = auth;
+
 		return (
 			<div>
-				<div className="container">
-					<div className="col-sm-6">
-						<Login/>
-					</div>
-					<div className="col-sm-6">
-						<TeamList />
-					</div>
-					<div className="col-sm-6">
-						<Profile auth={auth}/>
-					</div>
-				</div>
+				{
+					!isAuthenticated() &&
+						<div className="container">
+							<div className="col-sm-6">
+								<Login/>
+							</div>
+						</div>
+				}
+				{
+					isAuthenticated() &&
+						<div className="container">
+							<div className="col-sm-6">
+								<TeamList />
+							</div>
+							<div className="col-sm-6">
+								<Profile auth={auth}/>
+							</div>
+						</div>
+				}
 			</div>
 		)
 	}
