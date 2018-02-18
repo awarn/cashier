@@ -3,5 +3,7 @@
 ## Install
 
 * Install Webpack globally.
-* Install MongoDB and start an instance.
-* Do not forget the .env
+* Install MongoDB.
+* `mkdir ./data/db`.
+* Start MongoDB with `mongod --path ./data/db`.
+* Do not forget **dotenv**.
