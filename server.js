@@ -185,14 +185,16 @@ const jwtCheck = jwt({
 app.use("/api", jwtCheck);
 
 let apiRouter = express.Router();
+
 apiRouter.get("/", function(req, res) {
 	res.json({ message: "hooray! welcome to our api!" });   
 });
-apiRouter.get("/user/work/avg7", saleController.avgValueSevenDays)
-apiRouter.post("/sale", saleController.pushSale)
-apiRouter.get("/team", teamController.getTeam)
-apiRouter.post("/team", teamController.postTeam)
-apiRouter.get("/teams", teamController.getTeams)
+apiRouter.get("/user/work/avg7", saleController.avgValueSevenDays);
+apiRouter.post("/sale", saleController.pushSale);
+apiRouter.get("/team", teamController.getTeam);
+apiRouter.post("/team", teamController.postTeam);
+apiRouter.post("/team/delete", teamController.deleteTeam);
+apiRouter.get("/teams", teamController.getTeams);
 
 app.use("/api", apiRouter);
 

@@ -1,6 +1,6 @@
 
 import React from "react"
-import * as CashierAPIHelper from "helpers/api"
+import { post } from "helpers/api"
 import Auth from "services/Auth"
 
 const auth = new Auth();
@@ -13,16 +13,16 @@ export default class CreateTeam extends React.Component {
 		}
 	}
 
-	handleNameInputChange(e) {
-		this.setState({
-			name: e.target.value
-		});
-	}
-
 	async componentWillMount() {
 		let profile = await auth.getProfile();
 		this.setState({
 			owner: profile.name
+		});
+	}
+
+	handleNameInputChange(e) {
+		this.setState({
+			name: e.target.value
 		});
 	}
 
@@ -31,12 +31,12 @@ export default class CreateTeam extends React.Component {
 
 		let { name, owner } = this.state;
 
-		let res = await CashierAPIHelper.post("/team", {
+		let res = await post("/team", {
 			name: name,
 			owners: [owner]
 		});
 
-		console.log(res);
+		window.location.href = "/team";
 	}
 
 	render() {
@@ -50,16 +50,21 @@ export default class CreateTeam extends React.Component {
 							<h3>Skapa ett team</h3>
 
 							<form onSubmit={this.submitForm.bind(this)}>
-								<input type="text" 
-									name="name" 
-									value={name}
-									onChange={this.handleNameInputChange.bind(this)}/>
+								<label>
+									Namn
+									<input type="text" 
+										name="name" 
+										value={name}
+										className="form-control"
+										onChange={this.handleNameInputChange.bind(this)}/>
+								</label>
 
 								<input type="hidden" 
 									name="owner" 
 									value={owner}/>
 
 								<input type="submit" 
+									className="btn btn-primary form-control"
 									value="Spara"/>
 							</form>
 						</div>

@@ -23,6 +23,9 @@ export default class Navigation extends React.Component {
 							<a className="nav-link" href="/user">User</a>
 						</li>
 						<li className="nav-item">
+							<a className="nav-link" href="/team">Team</a>
+						</li>
+						<li className="nav-item">
 							<a className="nav-link text-warning" href="/dev">Dev</a>
 						</li>
 					</ul>

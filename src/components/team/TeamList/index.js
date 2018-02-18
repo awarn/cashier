@@ -1,6 +1,6 @@
 
 import React from "react"
-import * as CashierAPIHelper from "helpers/api"
+import { get } from "helpers/api"
 
 import CreateTeam from "components/team/CreateTeam"
 
@@ -15,11 +15,11 @@ export default class TeamList extends React.Component {
 	}
 
 	async componentWillMount() {
-		let teams = await CashierAPIHelper.get("/team?teamId=123")
+		let teams = await get("/teams")
 
 		if (teams) {
 			this.setState({
-				teams: [teams]
+				teams: teams
 			})	
 		}
 	}
@@ -33,8 +33,6 @@ export default class TeamList extends React.Component {
 	render() {
 		const { teams, createTeamView } = this.state
 
-		console.log(teams)
-
 		if (this.state.createTeam) {
 			return (
 				<div>
@@ -42,6 +40,7 @@ export default class TeamList extends React.Component {
 					<div>
 						<button 
 							title="Se listan över team"
+							className="btn btn-secondary"
 							onClick={this.toggleCreateTeam.bind(this)}>Lista</button>
 					</div>
 				</div>
@@ -55,7 +54,11 @@ export default class TeamList extends React.Component {
 								<h3>Team-lista</h3>
 								<ul>
 									{ teams.map((team, index) => {
-										return (<li key={`team-${index}`}>{team.name}</li>)
+										return (
+											<li key={`team-${index}`}>
+												<a href={`/team?id=${team._id}`}>{team.name}</a>
+											</li>
+										)
 									}) }
 								</ul>
 							</div>
@@ -63,6 +66,7 @@ export default class TeamList extends React.Component {
 					<div>
 						<button 
 							title="Skapa ett nytt team"
+							className="btn btn-secondary"
 							onClick={this.toggleCreateTeam.bind(this)}>Skapa nytt</button>
 					</div>
 				</div>
