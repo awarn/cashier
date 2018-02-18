@@ -10,6 +10,7 @@ export async function get(url, headers = {}) {
 	let combinedHeaders = Object.assign(
 		{
 			"Accept": "application/json",
+			"Content-Type": "application/json",
 			"Authorization": "Bearer " + auth.getAPIAccessToken()
 		},
 		headers)
@@ -32,12 +33,14 @@ export async function post(url, body, headers = {}) {
 	let combinedHeaders = Object.assign(
 		{
 			"Accept": "application/json",
+			"Content-Type": "application/json",
 			"Authorization": "Bearer " + auth.getAPIAccessToken()
 		},
 		headers)
 	
 	try {
-		let response = await fetch(rootUrl + url, {
+		let profile = await auth.getProfile()
+		let response = await fetch(rootUrl + url + `?user=${profile.name}`, {
 			method: "POST",
 			cache: false,
 			headers: new Headers(combinedHeaders),
