@@ -17,7 +17,7 @@ export async function get(url, headers = {}) {
 
 	try {
 		let profile = await auth.getProfile()
-		let response = await fetch(rootUrl + url + `?user=${profile.name}`, {
+		let response = await fetch(rootUrl + url, {
 			cache: false,
 			headers: new Headers(combinedHeaders)
 		})
@@ -40,7 +40,7 @@ export async function post(url, body, headers = {}) {
 	
 	try {
 		let profile = await auth.getProfile()
-		let response = await fetch(rootUrl + url + `?user=${profile.name}`, {
+		let response = await fetch(rootUrl + url, {
 			method: "POST",
 			cache: false,
 			headers: new Headers(combinedHeaders),
