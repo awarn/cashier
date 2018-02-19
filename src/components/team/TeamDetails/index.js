@@ -74,14 +74,28 @@ export default class Team extends React.Component {
 					team &&
 						<div>
 							<h2>{team.name}</h2>
+
+							<hr />
+
+							<h3>Ägare</h3>
+
 							{
 								team.owners && team.owners.length > 0 &&
-									<ul>
-										{ team.owners.map((owner, index) => {
-											return (<li key={`owner-${index}`}>{owner}</li>)
+									<ul className="list-inline">
+										{ team.owners.map((owner, index, array) => {
+											if (index === array.length - 1) {
+												return (<li key={`owner-${index}`} className="list-inline-item">{owner}</li>)
+											} else {
+												return (<li key={`owner-${index}`} className="list-inline-item">{owner},</li>)
+											}
 										}) }
 									</ul>
 							}
+
+							<hr />
+
+							<h3>Administration</h3>
+
 							<button 
 								onClick={this.deleteTeam.bind(this)}
 								className="btn btn-danger">Ta bort</button>
@@ -89,7 +103,7 @@ export default class Team extends React.Component {
 				}
 				{
 					!team &&
-						<div>Inget team med ID-nummer {teamId} hittat.</div>
+						<div>Laddar...</div>
 				}
 			</div>
 		)
