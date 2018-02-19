@@ -1,15 +1,30 @@
 
-import React from "react"
+import React from "react";
 
-import WorkBar from "components/WorkBar"
-import WorkPerformanceValue from "components/WorkPerformanceValue"
+import WorkBar from "components/WorkBar";
+import WorkPerformanceValue from "components/WorkPerformanceValue";
+
+import Auth from "services/Auth";
+const auth = new Auth();
 
 export default class Work extends React.Component {
 	constructor() {
-		super()
+		super();
+
+		this.state = {};
+	}
+
+	async componentWillMount() {
+		let profile = await auth.getProfile();
+
+		this.setState({
+			profile: profile
+		})
 	}
 
 	render() {
+		const { profile } = this.state;
+
 		return (
 			<div>
 				<div className="container">
@@ -28,9 +43,12 @@ export default class Work extends React.Component {
 					<div className="col-12">
 						<h2>Din dag</h2>
 					</div>
-					<div className="col-sm-6">
-						<WorkPerformanceValue/>
-					</div>
+					{
+						profile &&
+							<div className="col-sm-6">
+								<WorkPerformanceValue url={`/user/work/avg7?user=${profile.name}`}/>
+							</div>
+					}
 				</div>
 			</div>
 		)
