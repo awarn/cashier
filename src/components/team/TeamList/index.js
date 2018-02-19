@@ -52,15 +52,24 @@ export default class TeamList extends React.Component {
 						teams && teams.length > 0 &&
 							<div>
 								<h3>Team-lista</h3>
-								<ul>
+								<table className="table">
+								<thead>
+									<tr>
+										<th>Namn</th>
+										<th></th>
+									</tr>
+								</thead>
+								<tbody>
 									{ teams.map((team, index) => {
 										return (
-											<li key={`team-${index}`}>
-												<a href={`/team?id=${team._id}`}>{team.name}</a>
-											</li>
+											<tr key={`team-${index}`}>
+												<td>{team.name}</td>
+												<td><a href={`/team?id=${team._id}`}>Detaljer</a></td>
+											</tr>
 										)
 									}) }
-								</ul>
+								</tbody>
+								</table>
 							</div>
 					}
 					<div>
