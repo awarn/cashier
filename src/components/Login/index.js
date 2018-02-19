@@ -24,20 +24,18 @@ export default class Navigation extends React.Component {
 				{
 					!isAuthenticated() && (
 							<div>
-								<h1>Log in using Auth0</h1>
 								<button
-									className="btn-margin"
-									onClick={this.login.bind(this)}>Log In</button>
+									className="btn btn-primary"
+									onClick={this.login.bind(this)}>Logga in med Auth0</button>
 							</div>
 						)
 				}
 				{
 					isAuthenticated() && (
 							<div>
-								<h1>You are logged in</h1>
 								<button
-									className="btn-margin"
-									onClick={this.logout.bind(this)}>Log Out</button>
+									className="btn btn-secondary"
+									onClick={this.logout.bind(this)}>Logga ut</button>
 							</div>
 						)
 				}

@@ -30,10 +30,10 @@ export default class Work extends React.Component {
 					isAuthenticated() &&
 						<div className="container">
 							<div className="col-sm-6">
-								<TeamList />
-							</div>
-							<div className="col-sm-6">
 								<Profile auth={auth}/>
+							</div>
+							<div className="col-12">
+								<Login />
 							</div>
 						</div>
 				}
