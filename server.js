@@ -190,6 +190,7 @@ apiRouter.get("/", function(req, res) {
 	res.json({ message: "hooray! welcome to our api!" });   
 });
 apiRouter.get("/user/work/avg7", saleController.avgValueSevenDays);
+apiRouter.get("/user/work/totalToday", saleController.totalToday);
 apiRouter.post("/sale", saleController.pushSale);
 apiRouter.get("/team", teamController.getTeam);
 apiRouter.post("/team", teamController.postTeam);

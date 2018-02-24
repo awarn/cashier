@@ -100,3 +100,27 @@ export async function avgValueSevenDays(req, res) {
 		res.json(error)
 	})
 }
+
+export async function totalToday(req, res) {
+	let user = req.params.user || req.body.user || req.query.user
+
+	return client.query("sum", {
+		event_collection: "sales",
+		target_property: "charged",
+		filters: [
+			{
+				property_name: "user",
+				operator: "eq",
+				property_value: user
+			}
+		],
+		timezone: "Europe/Paris",
+		timeframe: "this_1_days"
+	})
+	.then(response => {
+		res.json(response.result)
+	})
+	.catch(error => {
+		res.json(error)
+	})
+}
