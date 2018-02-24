@@ -7,7 +7,8 @@ export default class WorkPerformanceValue extends React.Component {
 		super(props);
 		
 		this.state = {
-			value: props.value
+			value: props.value,
+			unit: props.unit
 		};
 	}
 
@@ -26,12 +27,12 @@ export default class WorkPerformanceValue extends React.Component {
 	}
 
 	render() {
-		const { value } = this.state;
+		const { value, unit } = this.state;
 		return (
 			<div>
 				{
-					value &&
-						<span><span className="h2">{round(value, 2)}</span> <span>(genomsnitt)</span></span>
+					(value == 0 || value) &&
+						<span className="h2">{round(value, 2)}<span> {unit}</span></span>
 				}
 			</div>
 		);
