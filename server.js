@@ -192,6 +192,7 @@ apiRouter.get("/", function(req, res) {
 apiRouter.get("/user/work/avg7", saleController.avgValueSevenDays);
 apiRouter.get("/user/work/totalToday", saleController.totalToday);
 apiRouter.get("/user/work/totalThisWeek", saleController.totalThisWeek);
+apiRouter.get("/user/work/totalLastWeek", saleController.totalLastWeek);
 apiRouter.post("/sale", saleController.pushSale);
 apiRouter.get("/team", teamController.getTeam);
 apiRouter.post("/team", teamController.postTeam);

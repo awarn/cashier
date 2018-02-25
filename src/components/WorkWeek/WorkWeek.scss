@@ -3,9 +3,16 @@
 	display: flex;
 }
 
+.oneWeekAgo {
+	display: flex;
+	flex-flow: column;
+	align-items: center;
+}
+
 .valueFrame {
 	display: flex;
-	height: 30vh;
+	min-height: 12rem;
+	flex-flow: column;
 	justify-content: center;
 	align-items: center;
 }
