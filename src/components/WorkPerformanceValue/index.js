@@ -15,7 +15,7 @@ export default class WorkPerformanceValue extends React.Component {
 	async getValue() {
 		let value = await CashierAPI.get(this.props.url);
 
-		if (value && !isNaN(value)) {
+		if (!isNaN(value)) {
 			this.setState({
 				value: value
 			});
@@ -28,10 +28,11 @@ export default class WorkPerformanceValue extends React.Component {
 
 	render() {
 		const { value, unit } = this.state;
+
 		return (
 			<div>
 				{
-					(value == 0 || value) &&
+					(value || value == 0) &&
 						<span className="h2">{round(value, 2)}<span> {unit}</span></span>
 				}
 			</div>
