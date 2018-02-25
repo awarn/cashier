@@ -1,5 +1,6 @@
 
 import React from "react";
+import { Switch, Route } from "react-router-dom"
 
 import WorkBar from "components/WorkBar";
 import WorkDay from "components/WorkDay";
@@ -24,17 +25,56 @@ export default class Work extends React.Component {
 
 	render() {
 		const { profile } = this.state;
+		const path = this.props.location.pathname;
 
 		return (
 			<div>
 				<div className="container">
-					<div className="col-sm-6">
-						{
-							profile &&
-								<WorkDay profile={profile} />
-						}
+					<div className="col-12">
+						<ul className="nav nav-pills nav-fill">
+							<li className="nav-item">
+								<a 
+									href="/work/day"
+									className={"nav-link " + (path == "/work/day" ? "active" : "")} >Dag</a>
+							</li>
+							<li className="nav-item">
+								<a 
+									href="/work/week"
+									className={"nav-link " + (path == "/work/week" ? "active" : "")} >Vecka</a>
+							</li>
+							<li className="nav-item">
+								<a 
+									href="/work/month"
+									className={"nav-link " + (path == "/work/month" ? "active" : "")} >Månad</a>
+							</li>
+						</ul>
 					</div>
 				</div>
+
+				<hr/>
+
+				<Route exact={false} path="/work/day" render={(props) => {
+					return (
+						<div className="container">
+							<div className="col-sm-6">
+								{
+									profile &&
+										<WorkDay profile={profile} {...props} />
+								}
+							</div>
+						</div>
+					)
+				}}/>
+				
+				<Route exact={false} path="/work/week" render={(props) => {
+					return (
+						<div className="container">
+							<div className="col-sm-6">
+								blargh
+							</div>
+						</div>
+					)
+				}}/>
 			</div>
 		)
 	}

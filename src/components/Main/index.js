@@ -44,7 +44,7 @@ export default class Main extends React.Component {
 						handleAuthentication(props)
 						return (<Welcome {...props}/>)
 					}}/>
-					<Route path="/work" component={userIsAuthenticated(Work)}/>
+					<Route path="/work/:timeframe" component={userIsAuthenticated(Work)}/>
 					<Route path="/team" component={userIsAuthenticated(Team)}/>
 					<Route path="/dev" component={userIsAuthenticated(Dev)}/>
 				</Switch>
