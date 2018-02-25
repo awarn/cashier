@@ -4,6 +4,7 @@ import { Switch, Route } from "react-router-dom"
 
 import WorkBar from "components/WorkBar";
 import WorkDay from "components/WorkDay";
+import WorkWeek from "components/WorkWeek/WorkWeek";
 
 import Auth from "services/Auth";
 const auth = new Auth();
@@ -71,7 +72,10 @@ export default class Work extends React.Component {
 						return (
 							<div className="container">
 								<div className="col-sm-6">
-									blargh
+									{
+										profile &&
+											<WorkWeek profile={profile} {...props} />
+									}
 								</div>
 							</div>
 						)
