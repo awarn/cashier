@@ -4,24 +4,18 @@ import React from "react"
 import TeamList from "components/team/TeamList"
 import TeamDetails from "components/team/TeamDetails"
 
-function getParameterByName(name, url) {
-	if (!url) url = window.location.href;
-	name = name.replace(/[\[\]]/g, "\\$&");
-	let regex = new RegExp("[?&]" + name + "(=([^&#]*)|&|#|$)"),
-			results = regex.exec(url);
-	if (!results) return null;
-	if (!results[2]) return "";
-	return decodeURIComponent(results[2].replace(/\+/g, " "));
-}
+export default class Team extends React.Component {
+	constructor(props) {
+		super(props);
 
-export default class Work extends React.Component {
-	constructor() {
-		super();
+		this.state = {
+			teamId: props.match.params.teamId
+		};
 	}
 
 	render() {
-		let teamId = getParameterByName("id");
-
+		const { teamId } = this.state;
+		
 		return (
 			<section className="container">
 				{

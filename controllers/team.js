@@ -12,6 +12,7 @@ export async function getTeam(req, res, next) {
 
 	try {
 		let team = await Team.findById(id)
+
 		res.json(team)
 	} catch (error) {
 		res.json(error)

@@ -4,7 +4,7 @@ import { Switch, Route } from "react-router-dom"
 
 import Dev from "routes/dev"
 import Home from "../../routes/home"
-import Team from "../../routes/team"
+import Team from "routes/team"
 import User from "../../routes/user"
 import Welcome from "../../routes/welcome"
 import Work from "../../routes/work"

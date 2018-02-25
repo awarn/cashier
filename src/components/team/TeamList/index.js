@@ -64,7 +64,7 @@ export default class TeamList extends React.Component {
 										return (
 											<tr key={`team-${index}`}>
 												<td>{team.name}</td>
-												<td><a href={`/team?id=${team._id}`}>Detaljer</a></td>
+												<td><a href={`/team/${team._id}`}>Detaljer</a></td>
 											</tr>
 										)
 									}) }

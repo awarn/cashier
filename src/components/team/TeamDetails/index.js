@@ -5,6 +5,7 @@ import { get, post } from "helpers/api"
 export default class Team extends React.Component {
 	constructor(props) {
 		super(props)
+		
 		this.state = {
 			teamId: props.teamId
 		}
