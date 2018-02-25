@@ -53,28 +53,30 @@ export default class Work extends React.Component {
 
 				<hr/>
 
-				<Route exact={false} path="/work/day" render={(props) => {
-					return (
-						<div className="container">
-							<div className="col-sm-6">
-								{
-									profile &&
-										<WorkDay profile={profile} {...props} />
-								}
+				<Switch>
+					<Route path="/work/day" render={(props) => {
+						return (
+							<div className="container">
+								<div className="col-sm-6">
+									{
+										profile &&
+											<WorkDay profile={profile} {...props} />
+									}
+								</div>
 							</div>
-						</div>
-					)
-				}}/>
-				
-				<Route exact={false} path="/work/week" render={(props) => {
-					return (
-						<div className="container">
-							<div className="col-sm-6">
-								blargh
+						)
+					}}/>
+
+					<Route path="/work/week" render={(props) => {
+						return (
+							<div className="container">
+								<div className="col-sm-6">
+									blargh
+								</div>
 							</div>
-						</div>
-					)
-				}}/>
+						)
+					}}/>
+				</Switch>
 			</div>
 		)
 	}
