@@ -8,6 +8,7 @@ import Team from "routes/team"
 import User from "../../routes/user"
 import Welcome from "../../routes/welcome"
 import Work from "../../routes/work"
+import TeamWork from "routes/teamwork"
 
 import Auth from "../../services/Auth"
 const auth = new Auth()
@@ -47,6 +48,9 @@ export default class Main extends React.Component {
 						return (<Welcome {...props}/>)
 					}}/>
 					<Route path="/work/:timeframe" component={userIsAuthenticated(Work)}/>
+					<Route path="/teamwork/:teamId" component={userIsAuthenticated(TeamWork)}/>
+					<Route path="/teamwork" component={userIsAuthenticated(TeamWork)}/>
+					<Route path="/team/:teamId" component={userIsAuthenticated(Team)}/>
 					<Route path="/team" component={userIsAuthenticated(Team)}/>
 					<Route path="/dev" component={userIsAuthenticated(Dev)}/>
 				</Switch>
