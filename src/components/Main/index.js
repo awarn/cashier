@@ -14,6 +14,8 @@ const auth = new Auth()
 
 import { connectedRouterRedirect } from "redux-auth-wrapper/history4/redirect"
 
+import "./Main.scss"
+
 const handleAuthentication = (nextState, replace) => {
   if (/access_token|id_token|error/.test(nextState.location.hash)) {
     auth.handleAuthentication()
