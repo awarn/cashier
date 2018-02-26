@@ -29,6 +29,22 @@ export default class TeamLadder extends React.Component
 			{
 				id: "q23hf47",
 				name: "Max"
+			},
+			{
+				id: "n90056l",
+				name: "Frida"
+			},
+			{
+				id: "q23hf47",
+				name: "Torkel"
+			},
+			{
+				id: "n90056l",
+				name: "Miriam"
+			},
+			{
+				id: "q23hf47",
+				name: "Nora"
 			}
 		];
 
@@ -54,38 +70,47 @@ export default class TeamLadder extends React.Component
 						<div>
 							<h3>Ratings</h3>
 							<table className="table">
-							<thead>
-								<tr>
-									<th>Namn</th>
-									<th>Rating</th>
-								</tr>
-							</thead>
-							<tbody>
-								{ 
-									team.members
-									.sort((a, b) => {
-										if (a.rating > b.rating) {
-											return -1;
-										}
-										else if (a.rating < b.rating) {
-											return 1;
-										}
-										else {
-											return 0;
-										}
-									})
-									.map((member, index) => {
-										return (
-											<tr 
-												key={`member-${index}`}
-												className={member.rating >= 400 || index === 0 ? s.yellowjacket : null}>
-												<td>{member.name}</td>
-												<td>{round(member.rating, 2)}</td>
-											</tr>
-										)
-									})
-								}
-							</tbody>
+								<thead>
+									<tr>
+										<th>Namn</th>
+										<th>Rating</th>
+										<th></th>
+									</tr>
+								</thead>
+								<tbody>
+									{ 
+										team.members
+										.sort((a, b) => {
+											if (a.rating > b.rating) {
+												return -1;
+											}
+											else if (a.rating < b.rating) {
+												return 1;
+											}
+											else {
+												return 0;
+											}
+										})
+										.map((member, index) => {
+											return (
+												<tr key={`member-${index}`}>
+													<td>
+														{member.name}
+													</td>
+													<td>
+														{round(member.rating, 2)}
+													</td>
+													<td>
+													{
+														member.rating >= 400 &&
+															<i className="material-icons">star</i>
+													}
+													</td>
+												</tr>
+											)
+										})
+									}
+								</tbody>
 							</table>
 						</div>
 				}
