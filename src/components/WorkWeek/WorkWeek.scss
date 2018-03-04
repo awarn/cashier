@@ -1,4 +1,17 @@
 
+.comparisons {
+	display: flex;
+}
+
+.comparisonValue {
+	padding: 0.3rem 0.5rem;
+	font-size: 1rem;
+	align-items: center;
+	i {
+		font-size: 1rem;
+	}
+}
+
 .label {
 	display: flex;
 }
@@ -17,6 +30,6 @@
 	align-items: center;
 }
 
-.wordDay {
+.wordWeek {
 	display: flex;
 }

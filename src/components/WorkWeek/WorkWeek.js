@@ -40,9 +40,15 @@ export default class WorkWeek extends React.Component {
 						}
 					</div>
 
-					<div className="nav nav-fill">
-						<a className="nav-link" href="#">Samma tidpunkt</a>
-						<a className="nav-link" href="#">Slutet av veckan</a>
+					<div className={s.comparisons}>
+						<button className={s.comparisonValue}>
+							Samma
+							<i className="material-icons">face</i>
+						</button>
+						<button className={s.comparisonValue}>
+							Totalt
+							<i className="material-icons">star</i>
+						</button>
 					</div>
 				</div>
 			</div>
