@@ -1,6 +1,6 @@
 
-import * as path from "path"
-import * as webpack from "webpack"
+const path = require("path");
+const webpack = require("webpack");
 
 let cssModulesLoader = "css-loader?importLoader=1&modules&localIdentName=[path]___[name]__[local]___[hash:base64:5]"
 
