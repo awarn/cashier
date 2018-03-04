@@ -172,3 +172,32 @@ export async function totalLastWeek(req, res) {
 		res.json(error)
 	})
 }
+
+export async function totalInTimeframe(req, res) {
+	let user = req.params.user || req.body.user || req.query.user;
+	let fromTime = req.params.fromTime || req.body.fromTime || req.query.fromTime;
+	let toTime = req.params.toTime || req.body.toTime || req.query.toTime;
+
+	return client.query("sum", {
+		event_collection: "sales",
+		target_property: "charged",
+		filters: [
+			{
+				property_name: "user",
+				operator: "eq",
+				property_value: user
+			}
+		],
+		timezone: "Europe/Paris",
+		timeframe: {
+      start: fromTime,
+      end: toTime
+    }
+	})
+	.then(response => {
+		res.json(response.result)
+	})
+	.catch(error => {
+		res.json(error)
+	})
+}
