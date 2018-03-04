@@ -1,4 +1,11 @@
 
+%chapter {
+	display: flex;
+	margin-bottom: 1rem;
+	flex-flow: column;
+	align-items: center;
+}
+
 .comparisons {
 	display: flex;
 }
@@ -14,12 +21,15 @@
 
 .label {
 	display: flex;
+	align-self: flex-start;
 }
 
 .oneWeekAgo {
-	display: flex;
-	flex-flow: column;
-	align-items: center;
+	@extend %chapter;
+}
+
+.thisWeek {
+	@extend %chapter;
 }
 
 .valueFrame {
