@@ -22,7 +22,7 @@ export default class WorkPerformanceValue extends React.Component {
 		}
 	}
 
-	componentWillMount() {
+	componentDidMount() {
 		this.getValue();
 	}
 
