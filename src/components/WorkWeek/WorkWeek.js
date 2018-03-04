@@ -1,4 +1,5 @@
 import React from "react";
+import moment from "moment";
 import WorkPerformanceValue from "components/WorkPerformanceValue";
 
 import s from "./WorkWeek.scss";
@@ -107,7 +108,7 @@ export default class WorkWeek extends React.Component {
 						}
 						{
 							profile && lastWeekView === "timepoint" &&
-								<WorkPerformanceValue url={`/user/work/totalThisWeek?user=${profile.name}`} unit="kr"/>
+								<WorkPerformanceValue url={`/user/work/totalInTimeframe?user=${profile.name}&fromTime=${moment().lang("se-sv", { week: {dow: 1}}).startOf("week").subtract(7, "days").toISOString()}&toTime=${moment().subtract(7, "days").toISOString()}`} unit="kr"/>
 						}
 					</div>
 
